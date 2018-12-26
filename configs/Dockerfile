@@ -11,6 +11,7 @@ FROM golang:alpine as build
 ENV GOPATH=/go
 ENV PATH=${GOPATH}/bin:/usr/local/go/bin:${PATH}
 
+WORKDIR /go/src/github.com/im7mortal/test_ci
 COPY . .
 
 RUN go install github.com/im7mortal/test_ci/cmd/server

@@ -10,7 +10,7 @@ services:
   - docker
 
 script:
-  - docker build -f configs/Dockerfile -t im7mortal/test_ci:try1 .
+  - docker build -f configs/Dockerfile -t im7mortal/test_ci:try2 .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push im7mortal/test_ci:try1
 

@@ -4,7 +4,7 @@ language: go
 if: tag IS present
 
 env:
-  - IMAGE=im7mortal/test_ci:${TRAVIS_BRANCH}
+  - IMAGE=${REGISTRY}:${TRAVIS_BRANCH}
 
 go:
   - 1.11.4
@@ -16,7 +16,7 @@ script:
   - docker build -f configs/Dockerfile -t $IMAGE .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push $IMAGE
-  - docker run -v /var/run/docker.sock:/var/run/docker.sock -e IMAGE=${IMAGE}  -e REGISTRY=${REGISTRY}  -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} awspushim7mortal/aws:v1
+  - docker run -v /var/run/docker.sock:/var/run/docker.sock -e IMAGE=${IMAGE} -e REGION=${REGION} -e AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}  -e AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} awspushim7mortal/aws:v1
 
 #after_success:
 #  - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN

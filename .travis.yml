@@ -3,6 +3,9 @@ language: go
 # Only build tags
 if: tag IS present
 
+env:
+  - IMAGE=im7mortal/test_ci:${TRAVIS_BRANCH}
+
 go:
   - 1.11.4
 
@@ -10,9 +13,9 @@ services:
   - docker
 
 script:
-  - docker build -f configs/Dockerfile -t im7mortal/test_ci:try2 .
+  - docker build -f configs/Dockerfile -t $IMAGE .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push im7mortal/test_ci:try1
+  - docker push $IMAGE
 
 #after_success:
 #  - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
